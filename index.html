@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ngvanvietioscheat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 340px;
+      margin: 20px auto;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 12px #f1c40f;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .rainbow-letter {
+      display: inline-block;
+      background: linear-gradient(
+        270deg,
+        #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee,
+        #2b65ff, #8000ff, #ff00c8, #ff0000, #ff7300,
+        #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff,
+        #ff00c8, #ff0000, #ff7300, #ffeb00, #47ff00
+      );
+      background-size: 3000%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowMove 10s linear infinite;
+      font-weight: bold;
+      text-shadow: 0 0 6px rgba(255,255,255,0.2);
+      will-change: background-position;
+    }
+    @keyframes rainbowMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .section {
+      margin-bottom: 15px;
+      background-color: rgba(30, 30, 30, 0.85);
+      border: 1px solid #f1c40f;
+      border-radius: 12px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .section-header {
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #f1c40f;
+      background: rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+    .section-header:hover {
+      background: rgba(241,196,15,0.3);
+    }
+    .section-header:after {
+      content: "▼";
+      font-size: 12px;
+      transition: transform 0.3s ease;
+      color: #f1c40f;
+    }
+    .section.open .section-header:after {
+      transform: rotate(-180deg);
+    }
+    .section-content {
+      padding: 10px 16px 16px 16px;
+      display: none;
+      background-color: rgba(30, 30, 30, 0.85);
+    }
+    .section.open .section-content {
+      display: block;
+    }
+    .option {
+      margin-bottom: 10px;
+      padding: 6px;
+      background-color: rgba(50, 50, 50, 0.9);
+      border-radius: 10px;
+      border: 1px solid #d4af37;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .option h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      cursor: help;
+      color: #d4af37;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+    }
+    .slider-container input[type="range"] {
+      flex: 1;
+      margin-right: 12px;
+      height: 6px;
+      accent-color: #d4af37;
+      cursor: pointer;
+      filter: drop-shadow(0 0 4px #d4af37);
+      border-radius: 3px;
+    }
+    .value {
+      width: 45px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 15px;
+      user-select: none;
+      color: #ffd700;
+    }
+    .apply-btn, .reset-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      color: transparent;
+      border: 1px solid #f1c40f;
+      border-radius: 8px;
+      cursor: pointer;
+      background: linear-gradient(
+        270deg,
+        #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee,
+        #2b65ff, #8000ff, #ff00c8, #ff0000, #ff7300,
+        #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff,
+        #ff00c8, #ff0000, #ff7300, #ffeb00, #47ff00
+      );
+      background-size: 2000%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowBtn 10s linear infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .apply-btn:hover,
+    .reset-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px #f1c40f;
+    }
+    .option.active {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(212, 175, 55, 0.6);
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .apply-btn, .reset-btn {
+      flex: 1;
+    }
+    .social-links {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      font-weight: bold;
+      color: transparent;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      background: linear-gradient(
+        270deg,
+        #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee,
+        #2b65ff, #8000ff, #ff00c8, #ff0000, #ff7300,
+        #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff,
+        #ff00c8, #ff0000, #ff7300, #ffeb00, #47ff00
+      );
+      background-size: 3000%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowBtn 15s linear infinite;
+      border: 1px solid #f1c40f;
+    }
+    @keyframes rainbowBtn {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    #alertBox {
+      text-align: center;
+      margin-top: 10px;
+      min-height: 18px;
+      color: #f1c40f;
+      font-weight: bold;
+      user-select: none;
+    }
+    .function-item {
+      margin-bottom: 10px;
+      padding: 8px;
+      background-color: rgba(50, 50, 50, 0.9);
+      border-radius: 10px;
+      border: 1px solid #d4af37;
+      transition: transform 0.1s ease, background-color 0.1s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+    .function-item h3 {
+      margin: 0;
+      font-size: 15px;
+      color: #d4af37;
+    }
+    .function-item:active {
+      transform: translateY(-5px);
+    }
+.activated {
+  background-color: rgba(50, 50, 50, 0.9);
+  border: 1px solid #d4af37;
+  box-shadow: 0 0 10px #d4af37;
+}
+.activated h3 {
+  color: #ffd700;
+}
+.circle-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 50px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px #f1c40f;
+}
+#rainbow-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rainbow-text {
+  display: inline-block;
+}
+.glowing-border {
+  border: 2px solid #d4af37;
+  box-shadow: 0 0 8px #d4af37, 0 0 12px #f1c40f;
+}
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 400px) {
+  .avatar-wrapper {
+    margin-right: 0;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+<h1 id="rainbow-title">
+<div class="avatar-wrapper">
+  <img src="https://v1.pinimg.com/videos/iht/expMp4/e0/ad/2a/e0ad2a80b511ea6ec36b5cf4d5e032c0_720w.mp4" alt="avatar" class="circle-avatar" />
+</div>
+ <span id="rainbow-text-holder" style="font-size: 24px;">TriggerScreen</span>
+</h1>
+<small id="subtitle" class="rainbow-letter" style="margin-top: 4px; font-size: 15px;">@ngvanvietioscheat</small>
+</div>
+<div class="container">
+  <h1 id="contact-title">ContactMe</h1>
+  <div class="social-links">
+    <a href="https://zalo.me/0377564940" target="_blank" class="zalo">Zalo</a>
+    <a href="https://t.me/ngvanvietioscheat" target="_blank" class="facebook">Tele</a>
+    <a href="https://www.tiktok.com/@vviet.missyou" target="_blank" class="tiktok">TikTok</a>
+  </div>
+</div>
+<div class="container">
+    <div class="section" id="music-section">
+      <div class="section-header">MUSIC</div>
+      <div class="section-content">
+        <audio id="bgmusic" controls loop style="width: 100%; margin-top: 5px; border-radius: 4px;">
+          <source src="https://files.catbox.moe/8pd5oy.mp4" type="audio/mpeg" />
+        </audio>
+      </div>
+    </div>
+
+    <div class="section" id="functions-section">
+      <div class="section-header">AIMLOCK</div>
+      <div class="section-content">
+        <div class="function-item"><h3>AIMLOCKPOINTER</h3></div>
+        <div class="function-item"><h3>AIMLOCKSPEEDMODE</h3></div>
+        <div class="function-item"><h3>AIMLOCKRUNNINGSCREEN</h3></div>
+      </div>
+    </div>
+
+    <div id="sections-container"></div>
+
+    <div class="action-buttons">
+      <button class="apply-btn">TURN ON</button>
+      <button class="reset-btn">TURN OFF</button>
+    </div>
+    <div id="alertBox"></div>
+  </div>
+
+  <script>
+const textHolder = document.getElementById("rainbow-text-holder");
+const rawText = textHolder.textContent.trim();
+textHolder.innerHTML = '';
+[...rawText].forEach((char, i) => {
+  const span = document.createElement('span');
+  span.textContent = char;
+  span.className = 'rainbow-letter';
+  span.style.animationDelay = (i * 0.05) + 's';
+  textHolder.appendChild(span);
+});
+
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('open');
+      });
+    });
+
+    const music = document.getElementById("bgmusic");
+    const functionItems = document.querySelectorAll('.function-item');
+    functionItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const wasActivated = item.classList.contains('activated');
+        if (!wasActivated) {
+          item.classList.add('activated');
+          alert("Đã bật " + item.querySelector('h3').innerText);
+        } else {
+          item.classList.remove('activated');
+          alert("Đã tắt " + item.querySelector('h3').innerText);
+        }
+      });
+    });
+
+    const groups = [
+      {
+        name: "OPTIMAL",
+        options: [
+          { label: "Pointer Speed", tooltip: "Tăng độ chính xác đạn thẳng" },
+          { label: "High Running Hz", tooltip: "Tăng khả năng bám đầu đối thủ" }
+        ]
+      },
+      {
+        name: "ANTI-DELAY",
+        options: [
+          { label: "No Lag", tooltip: "Giảm trễ xử lý" },
+          { label: "Fix Delay", tooltip: "Tối ưu hiệu suất giảm lag" }
+        ]
+      },
+      {
+        name: "RECOILCONTROL",
+        options: [
+          { label: "Peace Of Mind", tooltip: "Tăng sự ổn định tâm ngắm" },
+          { label: "Reduce Missile Bullets", tooltip: "Giảm sai lệch đạn" }
+        ]
+      },
+      {
+        name: "TOUCHSMOOTHSCREEN",
+        options: [
+          { label: "Smooth Machine", tooltip: "Tăng sự mượt mà khi chơi" },
+          { label: "Increased Touch", tooltip: "Cải thiện phản hồi cảm ứng" }
+        ]
+      }
+    ];
+
+    const container = document.getElementById("sections-container");
+    const alertBox = document.getElementById("alertBox");
+
+    groups.forEach(group => {
+      const section = document.createElement("div");
+      section.className = "section";
+      const header = document.createElement("div");
+      header.className = "section-header";
+      header.textContent = group.name;
+      const content = document.createElement("div");
+      content.className = "section-content";
+      group.options.forEach(opt => {
+        const savedValue = localStorage.getItem(opt.label) || 60;
+        const optionDiv = document.createElement("div");
+        optionDiv.className = "option";
+        optionDiv.innerHTML = `
+          <h3 title="${opt.tooltip}">${opt.label}</h3>
+          <div class="slider-container">
+            <input type="range" min="0" max="120" value="${savedValue}" title="${opt.tooltip}">
+            <div class="value">${savedValue}</div>
+          </div>
+        `;
+        content.appendChild(optionDiv);
+      });
+      section.appendChild(header);
+      section.appendChild(content);
+      container.appendChild(section);
+      header.addEventListener("click", () => {
+        section.classList.toggle("open");
+      });
+    });
+
+    document.addEventListener("input", e => {
+      if (e.target.matches('input[type="range"]')) {
+        const slider = e.target;
+        slider.nextElementSibling.textContent = slider.value;
+        const optionDiv = slider.closest(".option");
+        const label = optionDiv.querySelector("h3").textContent;
+        localStorage.setItem(label, slider.value);
+        optionDiv.classList.add("active");
+      }
+    });
+    function removeActiveClass(e) {
+      if (e.target.matches('input[type="range"]')) {
+        const optionDiv = e.target.closest(".option");
+        optionDiv.classList.remove("active");
+      }
+    }
+    document.addEventListener("mouseup", removeActiveClass);
+    document.addEventListener("touchend", removeActiveClass);
+
+    document.querySelector(".apply-btn").addEventListener("click", () => {
+      alertBox.textContent = "Cấu hình đã được áp dụng!";
+      setTimeout(() => { alertBox.textContent = ""; }, 3000);
+      if (music.paused) {
+        music.play().catch(() => {});
+      }
+    });
+    document.querySelector(".reset-btn").addEventListener("click", () => {
+      groups.forEach(group => {
+        group.options.forEach(opt => {
+          localStorage.removeItem(opt.label);
+        });
+      });
+      document.querySelectorAll('input[type="range"]').forEach(slider => {
+        slider.value = 60;
+        slider.nextElementSibling.textContent = 60;
+      });
+      alertBox.textContent = "Đã đặt lại mặc định!";
+      setTimeout(() => { alertBox.textContent = ""; }, 3000);
+      if (!music.paused) {
+        music.pause();
+        music.currentTime = 0;
+      }
+    });
+const contactTitle = document.getElementById("contact-title");
+const contactText = contactTitle.textContent.trim();
+contactTitle.innerHTML = '';
+[...contactText].forEach((char, i) => {
+  const span = document.createElement('span');
+  span.textContent = char;
+  span.className = 'rainbow-letter';
+  span.style.animationDelay = (i * 0.05) + 's';
+  contactTitle.appendChild(span);
+});
+    const rainbowText = document.querySelector(".rainbow-text");
+    const text = rainbowText.textContent.trim();
+    rainbowText.innerHTML = '';
+    [...text].forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.className = 'rainbow-letter';
+      span.style.animationDelay = (i * 0.05) + 's';
+      rainbowText.appendChild(span);
+    });
+document.querySelector(".apply-btn").addEventListener("click", () => {
+  alertBox.textContent = "Cấu hình đã được áp dụng!";
+  setTimeout(() => { alertBox.textContent = ""; }, 3000);
+  music.play().catch(() => {});
+});
+  </script>
+</body>
+</html>
